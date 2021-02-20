@@ -1,6 +1,6 @@
 # Proximity-Ligation-Assay-analysis
 
-This repository contains simple Bash scripts and ImageJ macros, to anlyze cellular vs nuclear PLA-events in fluoreszent images
+This repository contains simple Bash scripts and ImageJ macros, to analyze cellular vs nuclear PLA-events in fluoreszent images
 
 You can of course use the scripts to analyze other dotted stainings. 
 
