@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# All images sorted in one folder each, being in the dirctory above the images start this script.
+numbernuc=0;
+for D in `find . -type d`
+do
+ cd $D;
+  for File in `find . -maxdepth 1 -name 'CellularResult-non*'`; do
+
+
+          freedotsmin=$(cat $File | awk '{if ($2 == "0") print $1}' | sort -n | tail -1)
+          freedotsmax=$(cat $File | awk '{if ($2 == "0") print $1}' | sort -n | head -1)
+
+            Anzahl_zellularerDots=$(($freedotsmin - $freedotsmax +1))
+            echo $Anzahl_zellularerDots "Dots Frei" >> Result.txt
+            Anzahl_zellularerDots=0;
+            freedotsmin=0;
+            freedotsmax=0;
+  cd ../
+  done
+  cd $D;
+  for File in `find . -maxdepth 1 -name 'Nuklear-Exclude-*'`; do
+
+            nucleusdotsmin=$(cat $File | awk '{if ($2 == "0") print $1}' | sort -n | tail -1)
+            nucleusdotsmax=$(cat $File | awk '{if ($2 == "0") print $1}' | sort -n | head -1)
+
+            nucleusdots=$(($nucleusdotsmin - $nucleusdotsmax +1))
+            echo $nucleusdots "Im Kern" >>  Result.txt
+  cd ../
+  done
+  cd $D;
+  for File in `find . -maxdepth 1 -name 'Number_of_Nuclei*'`; do
+            nucleusmin=$(cat $File | awk '{if ($10 == "0") print $1}' | sort -n | tail -1)
+            nucleusmax=$(cat $File | awk '{if ($10 == "0") print $1}' | sort -n | head -1)
+
+            nucleus=$(($nucleusmin - $nucleusmax +1))
+            echo $nucleus "Nuclei " >>  Result.txt
+  cd ../
+  done
+done
+
+for File in `find . -maxdepth 2 -name 'Result.txt'`; do
+  anzahl=$(($(cat $File | awk '{if ($2 == "Nuclei") print $1}')))
+  numbernuc=$(($numbernuc + $anzahl))
+  numberdots=$(($numberdots + $(cat $File | awk '{if ($2 == "Dots") print $1}')))
+  nukdots=$(($nukdots + $(cat $File | awk '{if ($2 == "Im") print $1}')))
+done
+echo $numbernuc "All Nuclei " >>  Result1.txt
+echo $numberdots "All Free Dots" >>  Result1.txt
+echo $nukdots "All nuk Dots" >>  Result1.txt
