@@ -14,9 +14,9 @@ The script will ask you to open a directory (can have with multiple images insid
 
 ![Analysis-results](https://github.com/Habacef/Proximity-Ligation-Assay-analysis/blob/main/After-Analysis.png?raw=true)
 
-In order to retrieve a file containing just three lines of information that can be fed into statistical analysis software, run the "Bash-dataprocessing" script on your MacOS / Linux machine (you need to be able to run bash scripts to do so), while being in the same folder (see on screenshot-2 where th bash script is located). 
+In order to retrieve a file containing just three lines of information that can be fed into statistical analysis software, run the "Bash-dataprocessing" script on your MacOS / Linux machine (you need to be able to run bash scripts to do so), while being in the same folder (see on screenshot-2 where th bash script is located). It will create a file with all data for each image in the subfolders (Result.txt). And a file for all folders together (e.g. use the folder architecture to specifiy all images of one biological condition and replication / ...)
 
-![Processing-results](https://github.com/Habacef/Proximity-Ligation-Assay-analysis/blob/main/After-Analysis.png?raw=true)
+![Processing-results](https://github.com/Habacef/Proximity-Ligation-Assay-analysis/blob/main/After-data-processing.png?raw=true)
 
 NOTE: In case your fluorescence images were saved in splitted color-channels (one channel per image), run the "MacroToMakeIMagesOne" macro before the procedure, or adjust the "Analyse-PLA" macro to retrieve multiple single-channel images as an input. 
 
