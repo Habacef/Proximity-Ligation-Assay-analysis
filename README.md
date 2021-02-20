@@ -9,8 +9,8 @@ In all scripts there is a comment before th lines that should be changed accordi
 General usage: 
 
 
-Open FIJI / ImageJ, run "Analyse PLA".ijm (after adjusting for imagename and the expected size of nucleus / PLA-events inside the macro). 
-The script will ask you to open a directory (can have with multiple images inside that should be analyzed). It will then create a subfolder for the analysis files of each image -> One folder per image (See screenshot-1). 
+Open FIJI / ImageJ, run "Analyse PLA".ijm (after adjusting for image name and the expected size of nucleus / PLA-events inside the macro). 
+The script will ask you to open a directory (comprising one or multiple images to analyze). It will then create a subfolder for the analysis files of each image -> One folder per image (See screenshot-1). 
 
 ![Analysis-results](https://github.com/Habacef/Proximity-Ligation-Assay-analysis/blob/main/After-Analysis.png?raw=true)
 
