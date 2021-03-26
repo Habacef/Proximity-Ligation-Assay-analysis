@@ -37,7 +37,7 @@ run("Make Binary");
 
 run("Analyze Particles...", "size=0.0025-0.03 display");
 selectWindow("Results");
-saveAs("Results", splitDir + "Total Number of "+name+".txt");
+saveAs("Results", splitDir + "Total_PLA_Events_"+name+".txt");
 run("Clear Results");
 
 selectWindow(processed_blue);
@@ -55,7 +55,6 @@ roiManager("measure");
 selectWindow("Results");
 saveAs("Results", splitDir + "Number_of_Nuclei_ExcludeOnOedges_"+name+".txt");
 run("Clear Results");
-
 roiCount = roiManager("count");
 selectWindow("PLA Thresholded "+name+".tif");
 for (i = 0;  i < roiCount; i++) {
@@ -86,6 +85,7 @@ roiManager("combine");
 run("Make Inverse");
 roiManager("add");
 selectWindow("PLA Thresholded "+name+".tif");
+
 roiCount = roiManager("count");
 roiManager("select",(roiCount-1));
 run("Analyze Particles...", "size=0.0025-0.03 add display");
