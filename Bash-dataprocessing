@@ -5,7 +5,7 @@ numbernuc=0;
 for D in `find . -type d`
 do
  cd $D;
-  for File in `find . -maxdepth 1 -name 'CellularResult-non*'`; do
+  for File in `find . -maxdepth 1 -name 'Cytoplasmic-PLA-events-and-number-of-all-Nuclei*'`; do
 
 
           freedotsmin=$(cat $File | awk '{if ($2 == "0") print $1}' | sort -n | tail -1)
@@ -19,7 +19,7 @@ do
   cd ../
   done
   cd $D;
-  for File in `find . -maxdepth 1 -name 'Nuklear-Exclude-*'`; do
+  for File in `find . -maxdepth 1 -name 'Nuclear-PLA-Events-ExcludeOnEdges_*'`; do
 
             nucleusdotsmin=$(cat $File | awk '{if ($2 == "0") print $1}' | sort -n | tail -1)
             nucleusdotsmax=$(cat $File | awk '{if ($2 == "0") print $1}' | sort -n | head -1)
