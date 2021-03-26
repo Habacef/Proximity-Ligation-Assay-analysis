@@ -21,3 +21,5 @@ In order to retrieve a file containing just three lines of information that can 
 NOTE: In case your fluorescence images were saved in splitted color-channels (one channel per image), run the "MacroToMakeIMagesOne" macro before the procedure, or adjust the "Analyse-PLA" macro to retrieve multiple single-channel images as an input. 
 
 Thats it, Enjoy =)
+
+Please cite in case you publish using a script from here. 
