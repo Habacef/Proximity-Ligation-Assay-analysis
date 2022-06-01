@@ -7,34 +7,38 @@ do
  cd $D;
   for File in `find . -maxdepth 1 -name 'Cytoplasmic-PLA-events-and-number-of-all-Nuclei*'`; do
 
-
-          freedotsmin=$(cat $File | awk '{if ($2 == "0") print $1}' | sort -n | tail -1)
-          freedotsmax=$(cat $File | awk '{if ($2 == "0") print $1}' | sort -n | head -1)
-
+          freedotsmin=$(cat $File | tail -n +2 | awk '{print $1}' | sort -n | tail -1)
+          freedotsmax=$(cat $File | tail -n +2 | awk '{print $1}' | sort -n | head -1)
+	        echo $freedotsmax
+	         echo $freedotsmin
             Anzahl_zellularerDots=$(($freedotsmin - $freedotsmax +1))
             echo $Anzahl_zellularerDots "Dots Frei" >> Result.txt
             Anzahl_zellularerDots=0;
             freedotsmin=0;
             freedotsmax=0;
+
   cd ../
   done
   cd $D;
   for File in `find . -maxdepth 1 -name 'Nuclear-PLA-Events-ExcludeOnEdges_*'`; do
-
-            nucleusdotsmin=$(cat $File | awk '{if ($2 == "0") print $1}' | sort -n | tail -1)
-            nucleusdotsmax=$(cat $File | awk '{if ($2 == "0") print $1}' | sort -n | head -1)
+ 
+            nucleusdotsmin=$(cat $File | tail -n +2 | awk '{print $1}' | sort -n | tail -1)
+            nucleusdotsmax=$(cat $File | tail -n +2 | awk '{print $1}' | sort -n | head -1)
 
             nucleusdots=$(($nucleusdotsmin - $nucleusdotsmax +1))
             echo $nucleusdots "Im Kern" >>  Result.txt
+
   cd ../
   done
   cd $D;
   for File in `find . -maxdepth 1 -name 'Number_of_Nuclei*'`; do
-            nucleusmin=$(cat $File | awk '{if ($10 == "0") print $1}' | sort -n | tail -1)
-            nucleusmax=$(cat $File | awk '{if ($10 == "0") print $1}' | sort -n | head -1)
+
+            nucleusmin=$(cat $File | tail -n +2 | awk '{print $1}' | sort -n | tail -1)
+            nucleusmax=$(cat $File | tail -n +2 | awk '{print $1}' | sort -n | head -1)
 
             nucleus=$(($nucleusmin - $nucleusmax +1))
             echo $nucleus "Nuclei " >>  Result.txt
+ 
   cd ../
   done
 done
