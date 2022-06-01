@@ -67,7 +67,6 @@ roiManager("Save", splitDir + "ROIs of "+name+".zip");
 selectWindow("Results");
 saveAs("Results", splitDir + "Nuclear-PLA-Events-ExcludeOnEdges_"+name+".txt");
 run("Clear Results");
-run("Close");
 roiManager("select all");
 roiManager("delete");
 
@@ -79,7 +78,9 @@ makeRectangle(1, 1, w-2, h-2);
 run("Crop"); 
 run("Canvas Size...", "width="+w+" height="+h+" position=Center");
 run("Invert");
-run("Analyze Particles...", "size=1-1000 add show=Masks");
+run("Analyze Particles...", "size=1-1000 add show=Masks display");
+selectWindow("Results");
+saveAs("Results", splitDir + "All-Nuclei_"+name+".txt");
 roiManager("select all");
 roiManager("combine");
 run("Make Inverse");
@@ -88,10 +89,12 @@ selectWindow("PLA Thresholded "+name+".tif");
 
 roiCount = roiManager("count");
 roiManager("select",(roiCount-1));
-run("Analyze Particles...", "size=0.0025-0.03 add display");
 selectWindow("Results");
+run("Clear Results");
+run("Analyze Particles...", "size=0.0025-0.03 add display");
+
 //the following does not exclude Nuclei on edges. Thus you know how in how many halve nuclei PLA-events are present.
-saveAs("Results", splitDir + "Cytoplasmic-PLA-events-and-number-of-all-Nuclei_"+name+".txt");
+saveAs("Results", splitDir + "Cytoplasmic-PLA-events_"+name+".txt");
 
 run("Clear Results");
 run("Close");

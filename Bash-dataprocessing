@@ -4,13 +4,12 @@
 numbernuc=0;
 for D in `find . -type d`
 do
+
  cd $D;
-  for File in `find . -maxdepth 1 -name 'Cytoplasmic-PLA-events-and-number-of-all-Nuclei*'`; do
+  for File in `find . -maxdepth 1 -name 'Cytoplasmic-PLA-events_*'`; do
 
           freedotsmin=$(cat $File | tail -n +2 | awk '{print $1}' | sort -n | tail -1)
           freedotsmax=$(cat $File | tail -n +2 | awk '{print $1}' | sort -n | head -1)
-	        echo $freedotsmax
-	         echo $freedotsmin
             Anzahl_zellularerDots=$(($freedotsmin - $freedotsmax +1))
             echo $Anzahl_zellularerDots "Dots Frei" >> Result.txt
             Anzahl_zellularerDots=0;
@@ -19,6 +18,7 @@ do
 
   cd ../
   done
+
   cd $D;
   for File in `find . -maxdepth 1 -name 'Nuclear-PLA-Events-ExcludeOnEdges_*'`; do
  
@@ -30,6 +30,7 @@ do
 
   cd ../
   done
+
   cd $D;
   for File in `find . -maxdepth 1 -name 'Number_of_Nuclei*'`; do
 
@@ -41,14 +42,44 @@ do
  
   cd ../
   done
+
+  cd $D;
+  for File in `find . -maxdepth 1 -name 'All-Nuclei*'`; do
+
+            nucleusallmin=$(cat $File | tail -n +2 | awk '{print $1}' | sort -n | tail -1)
+            nucleusallmax=$(cat $File | tail -n +2 | awk '{print $1}' | sort -n | head -1)
+
+            nucleusall=$(($nucleusallmin - $nucleusallmax +1))
+            echo $nucleusall "Nucleus and halve nuclei on edges" >>  Result.txt
+  cd ../
+  done
+
+  cd $D;
+  for File in `find . -maxdepth 1 -name 'Total_PLA_Events*'`; do
+
+            totalEvmin=$(cat $File | tail -n +2 | awk '{print $1}' | sort -n | tail -1)
+            totalEvmax=$(cat $File | tail -n +2 | awk '{print $1}' | sort -n | head -1)
+
+            totalEv=$(($totalEvmin - $totalEvmax +1))
+            echo $totalEv "Total PLA events in image" >> Result.txt
+           
+            cd ../
+  done
+
 done
 
 for File in `find . -maxdepth 2 -name 'Result.txt'`; do
   anzahl=$(($(cat $File | awk '{if ($2 == "Nuclei") print $1}')))
   numbernuc=$(($numbernuc + $anzahl))
+  totalEVs=$((totalEVs + $(cat $File | awk '{if ($2 == "Total") print $1}'))) 
+  anzahlAll=$(($(cat $File | awk '{if ($2 == "Nucleus") print $1}')))
+  numbernucAll=$(($numbernucAll + $anzahlAll))
   numberdots=$(($numberdots + $(cat $File | awk '{if ($2 == "Dots") print $1}')))
   nukdots=$(($nukdots + $(cat $File | awk '{if ($2 == "Im") print $1}')))
 done
 echo $numbernuc "All Nuclei " >>  Result1.txt
+echo $numbernucAll "All Nuclei also halves on edge " >>  Result1.txt
 echo $numberdots "All Free Dots" >>  Result1.txt
-echo $nukdots "All nuk Dots" >>  Result1.txt
+echo $nukdots "All nuk Dots exclude edges" >>  Result1.txt
+echo $totalEVs "All PLA-events" >>  Result1.txt
+echo $(( $totalEVs - ($numberdots + $nukdots))) "All PLA-events-in-nuclei-on-edges" >>  Result1.txt
